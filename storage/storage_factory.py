@@ -10,7 +10,7 @@ class StorageFactory:
     """
 
     @staticmethod
-    def get_key(storage_type: str,  **kwargs) -> IStorage:
+    def get_key(storage_type: str, **kwargs) -> IStorage:
         """
         :param storage_type: The type of storage to create ('aws', 'local', 'vault').
         :param kwargs: Arguments to pass to the storage class constructor.

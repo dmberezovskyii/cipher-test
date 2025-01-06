@@ -7,9 +7,12 @@ import logging
 
 
 class Cipher:
-    def __init__(self, base_path: Optional[pathlib.Path] = None,
-                 key_file_name: str = "key.properties",
-                 vault_type: Literal["vault", "local", "vault_local"] = "vault_local"):
+    def __init__(
+        self,
+        base_path: Optional[pathlib.Path] = None,
+        key_file_name: str = "key.properties",
+        vault_type: Literal["vault", "local", "vault_local"] = "vault_local",
+    ):
         """
         Initialize the Cipher class with key management and password encryption/decryption functionality.
 
@@ -21,7 +24,9 @@ class Cipher:
                                                                   Currently supports only "local" for file-based keys.
 
         """
-        self.base_path = base_path or pathlib.Path(__file__).resolve().parent.parent / "config"
+        self.base_path = (
+            base_path or pathlib.Path(__file__).resolve().parent.parent / "config"
+        )
         self.key_file_path = self.base_path / key_file_name
         self.vault_type = vault_type
 
@@ -93,7 +98,9 @@ class Cipher:
                 self.key_file_path.unlink()
                 self.key_file_path.touch()  # Recreate an empty file to maintain structure
             else:
-                raise FileNotFoundError(f"Key file not found at {self.key_file_path}")
+                raise FileNotFoundError(
+                    f"Key file not found at {self.key_file_path}"
+                )
         except Exception as e:
             logging.error(f"Failed to delete key: {e}")
             raise
@@ -148,4 +155,7 @@ class Cipher:
         """
         if length <= 0:
             raise ValueError("Password length must be a positive integer.")
-        return "".join(secrets.choice(string.ascii_letters + string.digits) for _ in range(length))
+        return "".join(
+            secrets.choice(string.ascii_letters + string.digits)
+            for _ in range(length)
+        )
