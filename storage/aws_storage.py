@@ -1,15 +1,18 @@
-from storage.base_storage import IStorageManager
+import boto3
+
+from storage.base_storage import IStorage
 
 
-class AWSStorage(IStorageManager):
-    def __init__(self, vault_client):
-        self.vault_client = vault_client
+class AWSStorage(IStorage):
+    def __init__(self, secret_name, region_name="us-east-1"):
+        self.secret_name = secret_name
+        self.client = boto3.client("secretsmanager", region_name=region_name)
 
     def get_key(self) -> bytes:
-        vault_key = self.vault_client.get_secret(
-            secret="TOKEN",  # noqa # nosec
-        )
-        return vault_key.encode("utf-8")
+        response = self.client.get_secret_value(SecretId=self.secret_name)
+        return response["SecretString"].encode("utf-8")
 
     def store_key(self, key: bytes):
-        raise NotImplementedError("Vault storage does not support storing keys directly.")
+        self.client.put_secret_value(
+            SecretId=self.secret_name, SecretString=key.decode("utf-8")
+        )
