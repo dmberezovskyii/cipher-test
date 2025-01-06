@@ -7,7 +7,11 @@ license = "MIT"
 repository = "https://github.com/dmberezovskyii/cipher-test"
 keywords = ["SDK", "TurboPi", "Python", "Hiwonder"]
 readme = "README.md"
-
+packages = [
+    { include = "cipher"},
+    { include = "cli"},
+    { inclue = "storage"}
+]
 [tool.poetry.dependencies]
 python = "^3.12.6"
 # Pytest
@@ -23,3 +27,4 @@ beautifulsoup4 = "==4.11.1"
 PyYAML = "==6.0.2"
 toml = "==0.10.2"
 pyfiglet = "==1.0.2"
+boto3="^1.35.92"

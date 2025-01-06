@@ -1,15 +1,12 @@
-from storage.base_storage import IStorageManager
+from storage.base_storage import IStorage
 
 
-class VaultStorage(IStorageManager):
-    def __init__(self, vault_client):
-        self.vault_client = vault_client
+class VaultStorage(IStorage):
+    def __init__(self, vault):
+        self.vault = vault
 
     def get_key(self) -> bytes:
-        vault_key = self.vault_client.get_secret(
-            secret="TOKEN",  # noqa # nosec
-        )
-        return vault_key.encode("utf-8")
+        return self.vault.get_secret(secret="CRYPTO_TOKEN").encode("utf-8")
 
     def store_key(self, key: bytes):
-        raise NotImplementedError("Vault storage does not support storing keys directly.")
+        raise NotImplementedError("Storing key in Vault is not supported.")
