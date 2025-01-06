@@ -14,7 +14,7 @@ class Cipher:
         vault_type: Literal["vault", "local", "vault_local"] = "vault_local",
     ):
         """
-        Initialize the Cipher class with key management and password encryption/decryption functionality.
+       the Cipher class with key management and password encryption/decryption .
 
         Args:
             base_path: The directory where the key file is located.

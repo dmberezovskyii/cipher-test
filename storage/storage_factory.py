@@ -28,5 +28,4 @@ class StorageFactory:
         # Get the corresponding storage class
         storage_class = storage_classes[storage_type]
 
-        # Return an instance of the class, passing the provided kwargs to the constructor
         return storage_class(**kwargs)
