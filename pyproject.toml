@@ -8,7 +8,7 @@ repository = "https://github.com/dmberezovskyii/cipher-test"
 keywords = ["SDK", "TurboPi", "Python", "Hiwonder"]
 readme = "README.md"
 packages = [
-    { include = "cipher"},
+    { include = "core"},
     { include = "cli"},
     { inclue = "storage"}
 ]
