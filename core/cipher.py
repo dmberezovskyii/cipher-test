@@ -17,11 +17,11 @@ class Cipher:
         Initialize the Cipher class with key management and password encryption/decryption functionality.
 
         Args:
-            base_path (Optional[pathlib.Path]): The directory where the key file is located.
-                                                 Defaults to the "config" directory adjacent to this script.
-            key_file_name (str): The name of the key file. Defaults to "key.properties".
-            vault_type (Literal["vault", "local", "vault_local"]): Determines the type of vault for storing keys.
-                                                                  Currently supports only "local" for file-based keys.
+            base_path: The directory where the key file is located.
+                        Defaults to the "config" directory adjacent to this script.
+            key_file_name: The name of the key file. Defaults to "key.properties".
+            vault_type: Determines the type of vault for storing keys.
+                    Currently supports only "local" for file-based keys.
 
         """
         self.base_path = (
@@ -96,7 +96,7 @@ class Cipher:
         try:
             if self.key_file_path.exists():
                 self.key_file_path.unlink()
-                self.key_file_path.touch()  # Recreate an empty file to maintain structure
+                self.key_file_path.touch()
             else:
                 raise FileNotFoundError(
                     f"Key file not found at {self.key_file_path}"

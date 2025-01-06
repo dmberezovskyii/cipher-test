@@ -1,4 +1,4 @@
-from typing import Type, Optional
+from typing import Type
 from storage.base_storage import IStorage
 from storage.aws_storage import AWSStorage
 from storage.vault_storage import VaultStorage
@@ -17,7 +17,6 @@ class StorageFactory:
         :return: An instance of the corresponding storage class.
         """
         storage_classes: dict[str, Type[IStorage]] = {
-            "local": LocalStorage,
             "aws": AWSStorage,
             "vault": VaultStorage,
             # Add more storage types as needed
