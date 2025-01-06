@@ -8,9 +8,9 @@ repository = "https://github.com/dmberezovskyii/cipher-test"
 keywords = ["SDK", "TurboPi", "Python", "Hiwonder"]
 readme = "README.md"
 packages = [
-    { include = "core"},
-    { include = "cli"},
-    { inclue = "storage"}
+    { include = "core" },
+    { include = "cli" },
+    { include = "storage" }
 ]
 [tool.poetry.dependencies]
 python = "^3.12.6"
