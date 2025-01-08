@@ -9,7 +9,6 @@ keywords = ["SDK", "TurboPi", "Python", "Hiwonder"]
 readme = "README.md"
 packages = [
     { include = "core" },
-    { include = "config" },
     { include = "cli" },
     { include = "storage" }
 ]
