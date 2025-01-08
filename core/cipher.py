@@ -5,23 +5,27 @@ from typing import Optional, Literal
 from cryptography.fernet import Fernet, InvalidToken
 import logging
 
+from storage.storage_factory import StorageFactory
+
 
 class Cipher:
     def __init__(
         self,
         base_path: Optional[pathlib.Path] = None,
         key_file_name: str = "key.properties",
-        vault_type: Literal["vault", "local", "vault_local"] = "vault_local",
+        vault_type: Literal["vault", "local"] = "vault",
+        save_locally: bool = True,
+        **kwargs,
     ):
         """
-       the Cipher class with key management and password encryption/decryption .
+        the Cipher class with key management and password encryption/decryption .
 
-        Args:
-            base_path: The directory where the key file is located.
-                        Defaults to the "config" directory adjacent to this script.
-            key_file_name: The name of the key file. Defaults to "key.properties".
-            vault_type: Determines the type of vault for storing keys.
-                    Currently supports only "local" for file-based keys.
+         Args:
+             base_path: The directory where the key file is located.
+                         Defaults to the "config" directory adjacent to this script.
+             key_file_name: The name of the key file. Defaults to "key.properties".
+             vault_type: Determines the type of vault for storing keys.
+                     Currently supports only "local" for file-based keys.
 
         """
         self.base_path = (
@@ -30,12 +34,16 @@ class Cipher:
         self.key_file_path = self.base_path / key_file_name
         self.vault_type = vault_type
 
-        # Initialize the fernet key if needed
-        if vault_type == "local":
-            self.fernet = Fernet(self._load_key())
-        else:
-            self.fernet = None  # Placeholder for other vault types
-            # TODO: Add logic for other vault types
+        self.save_locally = save_locally
+        self.kwargs = kwargs
+        self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
+
+    def _load_key_from_vault(self, key_version: int = None, get_key: bool = True):
+        secret = self.storage_instance.get_key(get_key=get_key, version=key_version)
+        key = secret.get("key")
+        if not key:
+            raise ValueError("The key 'key' was not found in the secret.")
+        return key
 
     def _load_key(self) -> bytes:
         """
@@ -51,25 +59,30 @@ class Cipher:
         """
         if not self.key_file_path.exists():
             raise FileNotFoundError(f"Key file not found at {self.key_file_path}")
-        if self.key_file_path.stat().st_size == 0:
-            raise ValueError(f"The key file at {self.key_file_path} is empty.")
 
         try:
-            with open(self.key_file_path, "rb") as key_file:
-                return key_file.read()
+            if self.key_file_path.stat().st_size > 0:
+                with open(self.key_file_path, "rb") as key_file:
+                    key = key_file.read()
+                    return key
+            else:
+                return self.create_key()
         except Exception as e:
             raise RuntimeError(f"An error occurred while loading the key: {e}")
 
-    def _create_key(self) -> bytes:
+    def create_key(self) -> bytes:
         """
-        Generate and return a new encryption key.
+        Generate, return and store a new encryption key.
 
         Returns:
             bytes: The newly generated encryption key.
         """
-        return Fernet.generate_key()
+        key = Fernet.generate_key()
+        with open(self.key_file_path, "wb") as key_file:
+            key_file.write(key)
+        return key
 
-    def _save_key(self, key: Optional[bytes] = None) -> bytes:
+    def _save_key(self, key: Optional[bytes]) -> bytes:
         """
         Save the encryption key to the key file.
 
@@ -79,12 +92,17 @@ class Cipher:
         Returns:
             bytes: The saved encryption key.
         """
-        self.key_file_path.parent.mkdir(parents=True, exist_ok=True)
-        key = key or self._create_key()
+        if not key and self.save_locally:
+            key = self._load_key_from_vault()
+        else:
+            key = self._load_key()
+        if key and isinstance(key, str):
+            key = key.encode("utf-8")  # Convert string to bytes
 
-        with open(self.key_file_path, "wb") as key_file:
-            key_file.write(key)
-        return key
+        if self.key_file_path.exists():
+            with open(self.key_file_path, "wb") as key_file:
+                key_file.write(key)  # key is now guaranteed to be bytes
+                return key
 
     def delete_key(self):
         """
