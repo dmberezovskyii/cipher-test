@@ -1,12 +1,13 @@
-# Cipher-test
-`Cipher` test is a Python library for encrypting and decrypting passwords, designed for integration with automated testing frameworks such as Selenium, Appium, Playwright, and others. It ensures secure password storage and allows retrieving keys from remote vaults to decrypt configuration files.
+# About
+`secure-test-autmation` Python library for encrypting and decrypting passwords, designed for integration with automated testing frameworks such as Selenium, Appium, Playwright, and others. It ensures secure password storage and allows retrieving keys from remote  or local vaults to decrypt configuration files and passwords.
 
 ## Features
 
 - **Encryption and Decryption**: Encrypt and decrypt passwords using a Fernet key.
-- **Key Management**: Support for loading, creating, saving, and deleting encryption keys from a local file.
+- **Key Management**: Support for loading, creating, saving, and deleting encryption keys from a local file and remove vault
 - **Password Generation**: Generate secure, random passwords of a specified length.
-- **Multiple Vault Types**: Currently supports a "local" vault type for file-based key storage.
+- **Multiple Vault Types**: 
+  - Currently: local and and HashiCorp Vault
 
 ## Requirements
 
