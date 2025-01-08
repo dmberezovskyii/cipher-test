@@ -1,4 +1,3 @@
-from typing import Type
 from storage.vault_storage import VaultStorage
 from storage.aws_storage import AWSStorage
 from storage.base_provider import IProvider

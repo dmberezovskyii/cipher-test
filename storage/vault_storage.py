@@ -100,7 +100,7 @@ class VaultStorage(IProvider):
             # Prepare the payload for storing the secret
             data = {"data": key}
 
-            # Using the correct endpoint for creating or updating secrets in Vault (KV v2)
+            # Using Vault (KV v2)
             response = self.client.secrets.kv.v2.create_or_update_secret(
                 path=self.secret_path, secret=data
             )
