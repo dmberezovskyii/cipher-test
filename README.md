@@ -1,5 +1,5 @@
-# About
-`secure-test-automation` test is a Python library for encrypting and decrypting passwords, designed for integration with automated testing frameworks such as Selenium, Appium, Playwright, and others. It ensures secure password storage and allows retrieving keys from remote vaults to decrypt configuration files.
+# Cipher-test
+`Cipher` test is a Python library for encrypting and decrypting passwords, designed for integration with automated testing frameworks such as Selenium, Appium, Playwright, and others. It ensures secure password storage and allows retrieving keys from remote vaults to decrypt configuration files.
 
 ## Features
 
@@ -19,11 +19,18 @@ Install the required dependencies:
 
 1. Clone this repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/dmberezovskyii/secure-test-automation
    ```
 2. Install required dependencies:
    ```bash
    pip install poetry
    poetry shell
+   poetry env info
+   copy `Executable: path to virtual env` -> Add Interpreter -> Poetry Environment -> Existing environment -> add Executable -> Apply
    poetry install
    ```
+### Install Library
+   ```bash
+   pip install secure-test-automation
+   ```
+### TODO add documentation usage

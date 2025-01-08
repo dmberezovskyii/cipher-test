@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cipher"
-version = "0.1.0"
+version = "1.0.0"
 description = "Crypto tool for automation frameworks"
 authors = ["Dmytro Berezovskyi <dmberezovskyi@gmail.com>"]
 license = "MIT"
