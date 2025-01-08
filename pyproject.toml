@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "cipher"
+name = "secure-test-automation"
 version = "1.0.0"
 description = "Crypto tool for automation frameworks"
 authors = ["Dmytro Berezovskyi <dmberezovskyi@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/dmberezovskyii/secure-test-automation"
-keywords = ["SDK", "TurboPi", "Python", "Hiwonder"]
+keywords = ["cryptography", "Selenum", "appium", "secrets", "security"]
 readme = "README.md"
 packages = [
     { include = "core" },
