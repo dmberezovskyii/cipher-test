@@ -19,8 +19,6 @@ python = "^3.12.6"
 pytest = "8.3.2"
 pytest-html = "==4.1.1"
 
-# lint
-ruff = "==0.8.6"
 # utils
 cryptography = "==44.0.0"
 pydantic = "^2.10.3"
@@ -29,3 +27,10 @@ PyYAML = "==6.0.2"
 toml = "==0.10.2"
 pyfiglet = "==1.0.2"
 boto3="^1.35.92"
+
+[tool.poetry.dev-dependencies]
+ruff = "^0.6.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools"]
+build-backend = "poetry.core.masonry.api"
