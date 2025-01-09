@@ -6,5 +6,6 @@ build:
 python:
   install:
     - method: poetry
+      requirements: pyproject.toml
 sphinx:
   configuration: docs/source/conf.py
