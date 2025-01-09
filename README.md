@@ -9,6 +9,12 @@
 - **Multiple Vault Types**: 
   - Currently: local and and HashiCorp Vault
 
+## Documentation
+
+You can find the full documentation for Secure Test Automation here:
+[Secure Test Automation Documentation](https://secure-test-automation.readthedocs.io/en/latest/index.html)
+
+
 ## Requirements
 
 - Python 3.10 +
