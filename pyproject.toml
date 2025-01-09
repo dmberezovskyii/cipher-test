@@ -26,6 +26,7 @@ PyYAML = "==6.0.2"
 toml = "==0.10.2"
 pyfiglet = "==1.0.2"
 boto3="^1.35.92"
+click="^8.1.8"
 
 [tool.poetry.dev-dependencies]
 ruff = "^0.6.8"
@@ -33,3 +34,6 @@ ruff = "^0.6.8"
 [build-system]
 requires = ["poetry-core>=1.0.0", "setuptools"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+quick_start = "cli.cli_mmanager:quick_start"
