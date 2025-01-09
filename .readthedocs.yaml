@@ -5,6 +5,7 @@ build:
     python: "3.12"
 python:
   install:
-    - requirements: pyproject.toml
+    - method: poetry
+      requirements: pyproject.toml
 sphinx:
   configuration: docs/source/conf.py
