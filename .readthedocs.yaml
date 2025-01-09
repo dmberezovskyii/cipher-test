@@ -9,10 +9,5 @@ build:
     python: "3.12"
   commands:
     - python -m pip install sphinx-rtd-theme
-python:
-  install:
-    - method: poetry
-      requirements: pyproject.toml
-      path: .
 sphinx:
   configuration: docs/source/conf.py
