@@ -3,13 +3,16 @@
 
 # Required
 version: 2
-
-# Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-24.04
+  os: ubuntu-20.04
   tools:
     python: "3.12"
-
-# Build documentation in the "docs/" directory with Sphinx
+  commands:
+    - python -m pip install sphinx-rtd-theme
+python:
+  install:
+    - method: poetry
+      requirements: pyproject.toml
+      path: .
 sphinx:
-   configuration: docs/source/conf.py
+  configuration: docs/conf.py
