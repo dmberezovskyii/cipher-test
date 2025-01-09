@@ -8,6 +8,7 @@ build:
   tools:
     python: "3.12"
   commands:
+    - python -mvirtualenv $READTHEDOCS_VIRTUALENV_PATH
     - python -m pip install sphinx-rtd-theme
 sphinx:
   configuration: docs/source/conf.py
