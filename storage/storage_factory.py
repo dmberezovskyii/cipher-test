@@ -1,4 +1,3 @@
-from storage.local_storage import LocalStorage
 from storage.vault_storage import VaultStorage
 from storage.aws_storage import AWSStorage
 from storage.base_provider import IProvider
@@ -20,8 +19,7 @@ class StorageFactory:
         # Mapping of storage types to their classes
         storage_classes = {
             "aws": AWSStorage,
-            "vault": VaultStorage,
-            "local": LocalStorage
+            "vault": VaultStorage
         }
 
         # Check if the storage type is valid

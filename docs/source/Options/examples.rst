@@ -23,5 +23,5 @@ Local usage: Generating key and saving Key to local `key.properties`:
     .. code-block:: python
 
         cip = Cipher(vault_type="local")
-        key = cip._load_key_from_vault()
+        key = cip.load_key()
         cip.save_key(key=key)

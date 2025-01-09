@@ -38,6 +38,8 @@ class Cipher:
         self.kwargs = kwargs
         if vault_type != "local":
             self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
+        else:
+            self.fernet = Fernet(self.load_key())
 
     def _load_key_from_vault(self, key_version: int = None, get_key: bool = True):
         secret = self.storage_instance.get_key(get_key=get_key, version=key_version)
@@ -172,8 +174,3 @@ class Cipher:
             secrets.choice(string.ascii_letters + string.digits)
             for _ in range(length)
         )
-
-
-cip = Cipher(vault_type="local")
-key = cip.create_key()
-cip.save_key(key)

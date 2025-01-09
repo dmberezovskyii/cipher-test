@@ -17,11 +17,10 @@ Getting Started
 To get started with Secure Test Automation, you can follow the instructions in the "Installation" section. You can also explore the other sections of the documentation for specific usage guides.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :titlesonly:
+   :glob:
 
    Options/features
-   Options/functions
-   Options/workflow
-   Options/examples
    Options/cli
+   Options/quickstart
+   Options/examples
