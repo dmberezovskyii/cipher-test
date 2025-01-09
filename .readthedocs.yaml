@@ -1,7 +1,5 @@
 # Read the Docs configuration file
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
-
-# Required
 version: 2
 build:
   os: ubuntu-20.04
@@ -12,7 +10,5 @@ build:
 python:
   install:
     - method: poetry
-      requirements: pyproject.toml
-      path: .
 sphinx:
   configuration: docs/conf.py
