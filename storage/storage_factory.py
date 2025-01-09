@@ -1,3 +1,4 @@
+from storage.local_storage import LocalStorage
 from storage.vault_storage import VaultStorage
 from storage.aws_storage import AWSStorage
 from storage.base_provider import IProvider
@@ -17,7 +18,11 @@ class StorageFactory:
         :raises ValueError: If the storage type is unsupported.
         """
         # Mapping of storage types to their classes
-        storage_classes = {"aws": AWSStorage, "vault": VaultStorage}
+        storage_classes = {
+            "aws": AWSStorage,
+            "vault": VaultStorage,
+            "local": LocalStorage
+        }
 
         # Check if the storage type is valid
         if storage_type not in storage_classes:

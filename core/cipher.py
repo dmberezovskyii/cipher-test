@@ -36,7 +36,8 @@ class Cipher:
 
         self.save_locally = save_locally
         self.kwargs = kwargs
-        self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
+        if vault_type != "local":
+            self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
 
     def _load_key_from_vault(self, key_version: int = None, get_key: bool = True):
         secret = self.storage_instance.get_key(get_key=get_key, version=key_version)
@@ -45,7 +46,7 @@ class Cipher:
             raise ValueError("The key 'key' was not found in the secret.")
         return key
 
-    def _load_key(self) -> bytes:
+    def load_key(self) -> bytes:
         """
         Read the encryption key from the key file.
 
@@ -82,7 +83,7 @@ class Cipher:
             key_file.write(key)
         return key
 
-    def _save_key(self, key: Optional[bytes]) -> bytes:
+    def save_key(self, key: Optional[bytes] = None) -> bytes:
         """
         Save the encryption key to the key file.
 
@@ -92,16 +93,10 @@ class Cipher:
         Returns:
             bytes: The saved encryption key.
         """
-        if not key and self.save_locally:
-            key = self._load_key_from_vault()
-        else:
-            key = self._load_key()
-        if key and isinstance(key, str):
-            key = key.encode("utf-8")  # Convert string to bytes
 
         if self.key_file_path.exists():
             with open(self.key_file_path, "wb") as key_file:
-                key_file.write(key)  # key is now guaranteed to be bytes
+                key_file.write(key)
                 return key
 
     def delete_key(self):
@@ -177,3 +172,8 @@ class Cipher:
             secrets.choice(string.ascii_letters + string.digits)
             for _ in range(length)
         )
+
+
+cip = Cipher(vault_type="local")
+key = cip.create_key()
+cip.save_key(key)
