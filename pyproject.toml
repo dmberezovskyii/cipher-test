@@ -13,7 +13,7 @@ packages = [
     { include = "storage" }
 ]
 [tool.poetry.dependencies]
-python = "^3.12.6"
+python = ">3.10"
 # Pytest
 pytest = "8.3.2"
 pytest-html = "==4.1.1"
