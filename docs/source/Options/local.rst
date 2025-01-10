@@ -4,8 +4,8 @@ Quick Start with Local Storage
 1. Initialize the library:
 
    .. code:: python
-
-      cip = Cipher(vault_type="local")
+        base_path = pathlib.Path(__file__).resolve().parent.parent / "config"
+        cip = Cipher(vault_type="local", base_path=base_path)
 
 2. Generate a new encryption key to encrypt and decrypt passwords or other data:
 
