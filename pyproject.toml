@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "secure-test-automation"
-version = "1.2.3"
+version = "1.2.4"
 description = "Crypto tool for automation frameworks"
 authors = ["Dmytro Berezovskyi <dmberezovskyi@gmail.com>"]
 license = "MIT"
