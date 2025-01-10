@@ -21,7 +21,6 @@ pytest-html = "==4.1.1"
 # utils
 cryptography = "==44.0.0"
 pydantic = "^2.10.3"
-beautifulsoup4 = "==4.11.1"
 PyYAML = "==6.0.2"
 toml = "==0.10.2"
 pyfiglet = "==1.0.2"
