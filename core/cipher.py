@@ -36,10 +36,11 @@ class Cipher:
 
         self.save_locally = save_locally
         self.kwargs = kwargs
-        if vault_type != "local":
-            self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
-        else:
+
+        if vault_type == "local":
             self.fernet = Fernet(self.load_key())
+        else:
+            self.storage_instance = StorageFactory.get_instance(vault_type, **kwargs)
 
     def _load_key_from_vault(self, key_version: int = None, get_key: bool = True):
         secret = self.storage_instance.get_key(get_key=get_key, version=key_version)
@@ -60,11 +61,9 @@ class Cipher:
             ValueError: If the key file is empty.
             RuntimeError: If there is any other issue reading the key.
         """
-        if not self.key_file_path.exists():
-            raise FileNotFoundError(f"Key file not found at {self.key_file_path}")
 
         try:
-            if self.key_file_path.stat().st_size > 0:
+            if self.key_file_path.exists() and self.key_file_path.stat().st_size > 0:
                 with open(self.key_file_path, "rb") as key_file:
                     key = key_file.read()
                     return key
@@ -80,9 +79,11 @@ class Cipher:
         Returns:
             bytes: The newly generated encryption key.
         """
+        self.base_path.mkdir(parents=True, exist_ok=True)
         key = Fernet.generate_key()
         with open(self.key_file_path, "wb") as key_file:
             key_file.write(key)
+
         return key
 
     def save_key(self, key: Optional[bytes] = None) -> bytes:
