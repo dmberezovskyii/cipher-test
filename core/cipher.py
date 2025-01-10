@@ -11,7 +11,7 @@ from storage.storage_factory import StorageFactory
 class Cipher:
     def __init__(
         self,
-        base_path: Optional[pathlib.Path] = None,
+        base_path: pathlib.Path,
         key_file_name: str = "key.properties",
         vault_type: Literal["vault", "local"] = "vault",
         save_locally: bool = True,
@@ -28,9 +28,7 @@ class Cipher:
                      Currently supports only "local" for file-based keys.
 
         """
-        self.base_path = (
-            base_path or pathlib.Path(__file__).resolve().parent.parent / "config"
-        )
+        self.base_path = base_path
         self.key_file_path = self.base_path / key_file_name
         self.vault_type = vault_type
 
