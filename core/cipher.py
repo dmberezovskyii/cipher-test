@@ -20,11 +20,11 @@ class Cipher:
         """
         the Cipher class with key management and password encryption/decryption .
 
-         Args:
-             base_path: The directory where the key file is located.
+
+        :param     base_path: The directory where the key file is located.
                          Defaults to the "config" directory adjacent to this script.
-             key_file_name: The name of the key file. Defaults to "key.properties".
-             vault_type: Determines the type of vault for storing keys.
+        :param     key_file_name: The name of the key file. Defaults to "key.properties".
+        :param     vault_type: Determines the type of vault for storing keys.
                      Currently supports only "local" for file-based keys.
 
         """
@@ -88,8 +88,8 @@ class Cipher:
         """
         Save the encryption key to the key file.
 
-        Args:
-            key (Optional[bytes]): The key to save. If None, a new key is generated.
+
+        :param  key: The key to save. If None, a new key is generated.
 
         Returns:
             bytes: The saved encryption key.
@@ -103,9 +103,6 @@ class Cipher:
     def delete_key(self):
         """
         Delete the encryption key file.
-
-        Raises:
-            FileNotFoundError: If the key file does not exist.
         """
         try:
             if self.key_file_path.exists():
@@ -123,14 +120,11 @@ class Cipher:
         """
         Encrypt a password using the fernet key.
 
-        Args:
-            password (str): The password to encrypt.
+
+        :param  password: The password to encrypt.
 
         Returns:
             bytes: The encrypted password.
-
-        Raises:
-            ValueError: If the password is an empty string.
         """
         if not password:
             raise ValueError("Password must be a non-empty string.")
@@ -140,14 +134,11 @@ class Cipher:
         """
         Decrypt an encrypted password.
 
-        Args:
-            encrypted_pass (bytes): The encrypted password.
+
+        :param    encrypted_pass: The encrypted password.
 
         Returns:
             str: The decrypted password.
-
-        Raises:
-            ValueError: If the password is invalid or corrupted.
         """
         try:
             return self.fernet.decrypt(encrypted_pass).decode("utf-8")
@@ -158,14 +149,11 @@ class Cipher:
         """
         Generate a random password of a specified length.
 
-        Args:
-            length (int): The length of the generated password. Defaults to 12.
+
+        :param length: The length of the generated password. Defaults to 12.
 
         Returns:
             str: A randomly generated password.
-
-        Raises:
-            ValueError: If the length is non-positive.
         """
         if length <= 0:
             raise ValueError("Password length must be a positive integer.")
